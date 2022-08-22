@@ -5,6 +5,7 @@ export interface ITasksProvider {
 
 export interface ITasksContext {
   listCategory: ICategory[];
+  categorySelected: number | null;
   selectCategory: (idCategory:number | null) => void;
 }
 

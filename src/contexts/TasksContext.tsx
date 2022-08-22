@@ -5,7 +5,7 @@ export const TasksContext = createContext<ITasksContext>({});
 
 function TasksProvider({ children }:ITasksProvider) {
 
-  const [categorySelected, setCategorySelected] = useState<number | null>();
+  const [categorySelected, setCategorySelected] = useState<number | null>(null);
   const [listCategory, setListCategory] = useState<ICategory[]>([
     {
       id: 1,
@@ -25,6 +25,7 @@ function TasksProvider({ children }:ITasksProvider) {
     <TasksContext.Provider
       value={{
         listCategory,
+        categorySelected,
         selectCategory,
       }}
     >
