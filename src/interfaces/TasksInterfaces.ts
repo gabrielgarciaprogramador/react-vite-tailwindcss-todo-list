@@ -7,6 +7,8 @@ export interface ITasksContext {
   listCategory: ICategory[];
   categorySelected: number | null;
   selectCategory: (idCategory:number | null) => void;
+  searchTask: string,
+  setSearchTask: (value:string) => void;
 }
 
 export interface ICategory {
