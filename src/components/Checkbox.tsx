@@ -1,9 +1,9 @@
 import { Check as CheckIcon} from 'react-feather';
-interface CheckboxProps {
+interface ICheckbox {
   value: boolean;
 }
 
-function Checkbox(props: CheckboxProps) {
+function Checkbox(props: ICheckbox) {
   return (
     <div className={`w-5 h-5 rounded-[4px] border border-red flex items-center justify-center ${props.value && "bg-red"}`}>
       {props.value && (

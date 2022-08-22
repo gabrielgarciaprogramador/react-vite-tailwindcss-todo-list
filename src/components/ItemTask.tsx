@@ -5,21 +5,14 @@ import {
   Edit2 as EditIcon,
   X as CancelIcon
 } from 'react-feather';
+import { ITasks } from '../interfaces/TasksInterfaces'
 
-interface TaskProps {
-  task: {
-    id: number;
-    categoryId: number;
-    title: string;
-    finished: boolean;
-  }
-}
-
-function ItemTask(props: TaskProps) {
+function ItemTask(props: ITasks) {
 
   const { task } = props;
 
   const [activeEditingTask, setActiveEditingTask] = useState(false);
+  const [titleTask, setTitleTask] = useState(task.title);
 
   const initEditTask = () => {
     setActiveEditingTask(true)
@@ -33,9 +26,9 @@ function ItemTask(props: TaskProps) {
     <div className={`flex justify-between pl-2 pr-3 py-1.5 ${activeEditingTask && "shadow-md"}`}>
       <div className="w-full flex items-center gap-2.5">
         <Checkbox value={task.finished} />
-        <div className={`flex ${"w-min-32"} gap-1`}>
+        <div className={`flex ${activeEditingTask && "min-w-[300px]"} gap-1`}>
           {activeEditingTask ? (
-            <input className="text-lg outline-none" value={task.title} type="text" />
+            <input className="text-lg w-full outline-none" value={titleTask} onChange={(e) => setTitleTask(e.target.value)} type="text" />
           ) : (
             <>
               <span className={`text-lg text-neutral-700 ${task.finished && "line-through"}`}>{task.title}</span>
