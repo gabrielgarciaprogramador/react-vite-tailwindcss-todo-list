@@ -10,9 +10,11 @@ function ListTasks() {
   return (
     <div className="flex flex-col gap-y-2">
       {listTasks.map((task, index) => 
-        ((categorySelected == null || categorySelected === task.categoryId)
-        && (searchTask == '' || task.title.toLowerCase().includes(searchTask.toLowerCase()))) && (
-          <ItemTask key={index} task={task} />
+        (
+          (task.delete == undefined || task.delete == null)
+          && (categorySelected == null || categorySelected === task.categoryId)
+          && (searchTask == '' || task.title.toLowerCase().includes(searchTask.toLowerCase()))) && (
+            <ItemTask key={index} task={task} />
         )
       )}
     </div>

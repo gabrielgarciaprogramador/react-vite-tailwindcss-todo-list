@@ -60,6 +60,28 @@ function TasksProvider({ children }:ITasksProvider) {
     return category?.title || null;
   }
 
+  const deleteTask = (idTask: number) => {
+    let listTaskTemp = listTasks.map((task) => {
+      return {
+        ...task,
+        delete: task.id === idTask ? "2022-08-23" : task?.delete
+      }
+    });
+    setListTasks(listTaskTemp);
+  }
+
+  const handleFinishedTask = (idTask: number) => {
+    let listTaskTemp = listTasks.map((task) => {
+      return {
+        ...task,
+        finished: task.id === idTask ? !task?.finished : task?.finished,
+        finishedDate: task.id === idTask ? (!task?.finished ? "2022-08-23" : null) : task?.finishedDate
+      }
+    });
+    setListTasks(listTaskTemp);
+    console.log(listTaskTemp);
+  }
+
   return (
     <TasksContext.Provider
       value={{
@@ -69,7 +91,9 @@ function TasksProvider({ children }:ITasksProvider) {
         searchTask,
         setSearchTask,
         identifyCategory,
-        listTasks
+        listTasks,
+        deleteTask,
+        handleFinishedTask
       }}
     >
       {children}

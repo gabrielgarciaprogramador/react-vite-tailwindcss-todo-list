@@ -10,6 +10,8 @@ export interface ITasksContext {
   searchTask: string,
   setSearchTask: (value:string) => void;
   identifyCategory: (idCategory:number) => string | null;
+  deleteTask: (idTask:number) => void;
+  handleFinishedTask: (idTask: number) => void;
   listTasks: ITask[];
 }
 
@@ -23,6 +25,8 @@ export interface ITask {
   categoryId: number;
   title: string;
   finished: boolean;
+  delete?: string | null;
+  finishedDate?: string | null;
 }
 
 export interface IPropsItemTask {

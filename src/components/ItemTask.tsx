@@ -12,7 +12,7 @@ import { IPropsItemTask } from '../interfaces/TasksInterfaces'
 function ItemTask(props: IPropsItemTask) {
 
   const { task } = props;
-  const { identifyCategory } = useContext(TasksContext);
+  const { identifyCategory, deleteTask, handleFinishedTask } = useContext(TasksContext);
 
   const [activeEditingTask, setActiveEditingTask] = useState(false);
   const [titleTask, setTitleTask] = useState(task.title);
@@ -28,7 +28,7 @@ function ItemTask(props: IPropsItemTask) {
   return (
     <div className={`flex justify-between pl-2 pr-3 py-1.5 ${activeEditingTask && "shadow-md"}`}>
       <div className="w-full flex items-center gap-2.5">
-        <Checkbox value={task.finished} />
+        <Checkbox value={task.finished} handleCheckbox={() => handleFinishedTask(task.id)} />
         <div className={`flex ${activeEditingTask && "min-w-[300px]"} gap-1`}>
           {activeEditingTask ? (
             <input className="text-lg w-full outline-none" value={titleTask} onChange={(e) => setTitleTask(e.target.value)} type="text" />
@@ -49,11 +49,11 @@ function ItemTask(props: IPropsItemTask) {
       </div>
       <div className="flex items-center gap-3">
         {activeEditingTask ? (
-          <button className="text-red-700 hover:opacity-70">
-            <CancelIcon onClick={cancelEditTask} size={14} />
+          <button onClick={cancelEditTask} className="text-red-700 hover:opacity-70">
+            <CancelIcon size={14} />
           </button>
         ) : (
-          <button className="text-red-700 hover:opacity-70">
+          <button onClick={() => deleteTask(task.id)} className="text-red-700 hover:opacity-70">
             <TrashIcon size={14} />
           </button>
         )}
