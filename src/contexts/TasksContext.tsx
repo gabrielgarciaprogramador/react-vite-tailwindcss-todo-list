@@ -1,7 +1,7 @@
 import { useState, createContext } from 'React';
 import { ITasksContext, ITasksProvider, ICategory } from '../interfaces/TasksInterfaces';
 
-export const TasksContext = createContext<ITasksContext>({});
+export const TasksContext = createContext<ITasksContext>({} as ITasksContext);
 
 function TasksProvider({ children }:ITasksProvider) {
 
@@ -22,6 +22,13 @@ function TasksProvider({ children }:ITasksProvider) {
     setCategorySelected(idCategory);
   }
 
+  const identifyCategory  = (idCategory: number) => {
+    
+    let category = listCategory.find(category => category.id === idCategory);
+
+    return category?.title || null;
+  }
+
   return (
     <TasksContext.Provider
       value={{
@@ -29,7 +36,8 @@ function TasksProvider({ children }:ITasksProvider) {
         categorySelected,
         selectCategory,
         searchTask,
-        setSearchTask
+        setSearchTask,
+        identifyCategory
       }}
     >
       {children}

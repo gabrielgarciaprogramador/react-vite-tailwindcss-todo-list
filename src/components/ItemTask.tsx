@@ -1,4 +1,6 @@
-import { useState } from 'React';
+import { useState, useContext } from 'React';
+import { TasksContext } from "../contexts/TasksContext"
+
 import Checkbox from './Checkbox';
 import { 
   Trash2 as TrashIcon,
@@ -10,6 +12,7 @@ import { ITasks } from '../interfaces/TasksInterfaces'
 function ItemTask(props: ITasks) {
 
   const { task } = props;
+  const { identifyCategory } = useContext(TasksContext);
 
   const [activeEditingTask, setActiveEditingTask] = useState(false);
   const [titleTask, setTitleTask] = useState(task.title);
@@ -41,7 +44,7 @@ function ItemTask(props: ITasks) {
         {activeEditingTask ? (
           <></>
         ) : (
-          <span className="bg-red text-white text-xs py-0.5 px-2 rounded-sm ml-1">{task.categoryId}</span>
+          <span className="bg-red text-white text-xs py-0.5 px-2 rounded-sm ml-1">{identifyCategory(task.categoryId)}</span>
         )}
       </div>
       <div className="flex items-center gap-3">

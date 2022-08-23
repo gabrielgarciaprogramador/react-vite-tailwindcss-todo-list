@@ -9,6 +9,7 @@ export interface ITasksContext {
   selectCategory: (idCategory:number | null) => void;
   searchTask: string,
   setSearchTask: (value:string) => void;
+  identifyCategory: (idCategory:number) => string | null;
 }
 
 export interface ICategory {
