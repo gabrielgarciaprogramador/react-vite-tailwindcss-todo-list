@@ -10,6 +10,7 @@ export interface ITasksContext {
   searchTask: string,
   setSearchTask: (value:string) => void;
   identifyCategory: (idCategory:number) => string | null;
+  listTasks: ITask[];
 }
 
 export interface ICategory {
@@ -17,11 +18,13 @@ export interface ICategory {
   title: string;
 }
 
-export interface ITasks {
-  task: {
-    id: number;
-    categoryId: number;
-    title: string;
-    finished: boolean;
-  }
+export interface ITask {
+  id: number;
+  categoryId: number;
+  title: string;
+  finished: boolean;
+}
+
+export interface IPropsItemTask {
+  task: ITask
 }

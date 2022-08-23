@@ -7,9 +7,9 @@ import {
   Edit2 as EditIcon,
   X as CancelIcon
 } from 'react-feather';
-import { ITasks } from '../interfaces/TasksInterfaces'
+import { IPropsItemTask } from '../interfaces/TasksInterfaces'
 
-function ItemTask(props: ITasks) {
+function ItemTask(props: IPropsItemTask) {
 
   const { task } = props;
   const { identifyCategory } = useContext(TasksContext);
