@@ -1,4 +1,4 @@
-import { useState, createContext } from 'React';
+import { useState, useEffect, createContext } from 'React';
 import { ITasksContext, ITasksProvider, ITask, ICategory } from '../interfaces/TasksInterfaces';
 
 export const TasksContext = createContext<ITasksContext>({} as ITasksContext);
@@ -79,7 +79,14 @@ function TasksProvider({ children }:ITasksProvider) {
       }
     });
     setListTasks(listTaskTemp);
-    console.log(listTaskTemp);
+  }
+
+  const editTask = (idTask: number, {titleTask, categoryIdTask}:any) => {
+    let listTaskTemp = listTasks.map((task) => {
+      return task.id == idTask ? {...task, title: titleTask, categoryId: categoryIdTask} : task;
+    })
+
+    setListTasks(listTaskTemp);
   }
 
   return (
@@ -93,6 +100,7 @@ function TasksProvider({ children }:ITasksProvider) {
         identifyCategory,
         listTasks,
         deleteTask,
+        editTask,
         handleFinishedTask
       }}
     >

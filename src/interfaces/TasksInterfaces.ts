@@ -13,6 +13,7 @@ export interface ITasksContext {
   deleteTask: (idTask:number) => void;
   handleFinishedTask: (idTask: number) => void;
   listTasks: ITask[];
+  editTask: (idTask: number, {}) => void;
 }
 
 export interface ICategory {

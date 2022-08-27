@@ -13,6 +13,7 @@ function Checkbox(props: ICheckbox) {
       className={`
         w-5 h-5 rounded-[4px] border border-red
         flex items-center justify-center
+        hover:cursor-pointer
         ${props.value && "bg-red"}`
       }
       onClick={props.handleCheckbox}
