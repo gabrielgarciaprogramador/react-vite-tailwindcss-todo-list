@@ -50,11 +50,16 @@ function ItemTask(props: IPropsItemTask) {
     <div className={`flex justify-between pl-2 pr-3 py-1.5 ${activeEditingTask && "shadow-md"}`}>
       <div className="w-full flex items-center gap-2.5">
         <Checkbox value={task.finished} handleCheckbox={() => handleFinishedTask(task.id)} />
-        <div className={`flex ${activeEditingTask && "min-w-[300px]"} gap-1`}>
+        <div className="flex gap-1 items-center">
           {activeEditingTask ? (
             <>
-              <input className="text-lg w-full outline-none" value={task.title} onChange={(e) => editTitleTask(e.target.value)} type="text" />
-              <Select value={task.categoryId} options={listOptionsCategory} onChange={(value) => { editCategoryTask(value) }} placeholder="Selecione uma categoria" />
+              <input className="text-lg w-full outline-none min-w-[220px]" value={task.title} onChange={(e) => editTitleTask(e.target.value)} type="text" />
+              <Select
+                value={task.categoryId}
+                options={listOptionsCategory}
+                onChange={editCategoryTask}
+                placeholder="Selecione uma categoria"
+              />
             </>
           ) : (
             <>
@@ -68,7 +73,7 @@ function ItemTask(props: IPropsItemTask) {
         {activeEditingTask ? (
           <></>
         ) : (
-          <span className="bg-red text-white text-xs py-0.5 px-2 rounded-sm ml-1">{identifyCategory(task.categoryId)}</span>
+          <span className="bg-red text-white text-xs py-0.5 px-2 rounded-sm ml-2">{identifyCategory(task.categoryId)}</span>
         )}
       </div>
       <div className="flex items-center gap-3">

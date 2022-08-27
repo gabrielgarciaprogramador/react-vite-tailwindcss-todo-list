@@ -1,4 +1,5 @@
 import {useState} from 'React';
+import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
 interface SelectOptions {
   id: number;
@@ -23,6 +24,7 @@ function Select(props: ISelect) {
 
   const handleOptionClick = (optionId:number) => {
     props.onChange(optionId);
+    setVisibleList(false);
   }
 
   const identifyOption = (optionId:number | null) => {
@@ -31,15 +33,17 @@ function Select(props: ISelect) {
   }
 
   return (
-    <>
-      <span onClick={handleVisibleList}>
-        {identifyOption(value) || placeholder}
-      </span>
+    <div className="relative">
+      <div className="py-0.5 px-2 pl-2.5 min-w-[160px] h-fit flex justify-between items-center rounded-sm text-red border border-red cursor-pointer" onClick={handleVisibleList}>
+        <span className="text-xs">{identifyOption(value) || placeholder}</span>
+        <ChevronDownIcon size={12} />
+      </div>
       {visibleList && (
-        <ul>
+        <ul className="bg-red absolute w-full px-2 pl-2.5 pt-1 pb-2 gap-y-5">
           {
             options.map((option, index) => (
               <li
+                className={`text-white text-xs inline-block w-full cursor-pointer hover:opacity-70 ${option.id === value && "font-bold"}`} 
                 key={index}
                 onClick={() => handleOptionClick(option?.id)}
               >
@@ -49,7 +53,7 @@ function Select(props: ISelect) {
           }
         </ul>
       )}
-    </>
+    </div>
   )
 }
 
