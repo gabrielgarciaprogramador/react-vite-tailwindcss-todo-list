@@ -13,6 +13,8 @@ export interface ITasksContext {
   deleteTask: (idTask:number) => void;
   handleFinishedTask: (idTask: number) => void;
   listTasks: ITask[];
+  editingTask: number | null;
+  setEditingTask: (idTask: number | null) => void;
   editTask: (idTask: number, {}) => void;
 }
 

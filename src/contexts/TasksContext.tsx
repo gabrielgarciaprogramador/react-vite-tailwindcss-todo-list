@@ -7,6 +7,7 @@ function TasksProvider({ children }:ITasksProvider) {
 
   const [categorySelected, setCategorySelected] = useState<number | null>(null);
   const [searchTask, setSearchTask] = useState<string>('');
+  const [editingTask, setEditingTask] = useState<number | null>(null);
   const [listCategory, setListCategory] = useState<ICategory[]>([
     {
       id: 1,
@@ -50,6 +51,10 @@ function TasksProvider({ children }:ITasksProvider) {
       finished: false,
     }
   ])
+
+  useEffect(() => {
+    setEditingTask(null);
+  }, [searchTask])
 
   const selectCategory = (idCategory: number | null) => {
     setCategorySelected(idCategory);
@@ -101,6 +106,8 @@ function TasksProvider({ children }:ITasksProvider) {
         listTasks,
         deleteTask,
         editTask,
+        editingTask,
+        setEditingTask,
         handleFinishedTask
       }}
     >

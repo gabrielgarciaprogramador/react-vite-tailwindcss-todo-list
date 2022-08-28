@@ -1,4 +1,4 @@
-import { useState, useContext } from 'React';
+import { useState, useContext, useEffect } from 'React';
 import { TasksContext } from "../contexts/TasksContext"
 
 import Select from './Select';
@@ -13,9 +13,9 @@ import { IPropsItemTask } from '../interfaces/TasksInterfaces'
 function ItemTask(props: IPropsItemTask) {
 
   const { task } = props;
-  const { identifyCategory, deleteTask, handleFinishedTask, editTask, listCategory } = useContext(TasksContext);
+  const { identifyCategory, deleteTask, handleFinishedTask, editTask, listCategory, editingTask, setEditingTask } = useContext(TasksContext);
 
-  const [activeEditingTask, setActiveEditingTask] = useState(false);
+  const editingCurrentTask = editingTask === task.id;
 
   const listOptionsCategory = listCategory.map((category) => {
     return {
@@ -25,11 +25,11 @@ function ItemTask(props: IPropsItemTask) {
   })
 
   const initEditTask = () => {
-    setActiveEditingTask(true)
+    setEditingTask(task.id);
   }
 
   const cancelEditTask = () => {
-    setActiveEditingTask(false)
+    setEditingTask(null);
   }
 
   const editCategoryTask = (categoryId: number) => {
@@ -46,14 +46,30 @@ function ItemTask(props: IPropsItemTask) {
     });
   }
 
+  const handleClickOutsideItemTask = () => {
+    
+  }
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutsideItemTask);
+    return () => document.removeEventListener("mousedown", handleClickOutsideItemTask);
+  }, [])
+
   return (
-    <div className={`flex justify-between pl-2 pr-3 py-1.5 ${activeEditingTask && "shadow-md"}`}>
+    <div
+      className={`
+        container-item-task
+        flex justify-between pl-2 pr-3 py-1.5
+        ${editingCurrentTask ? "shadow-md" : editingTask != null && "opacity-50"}
+      `}
+      data-id-task={task.id}
+    >
       <div className="w-full flex items-center gap-2.5">
         <Checkbox value={task.finished} handleCheckbox={() => handleFinishedTask(task.id)} />
         <div className="flex gap-1 items-center">
-          {activeEditingTask ? (
+          {editingCurrentTask ? (
             <>
-              <input className="text-lg w-full outline-none min-w-[220px]" value={task.title} onChange={(e) => editTitleTask(e.target.value)} type="text" />
+              <input className="text-lg w-full outline-none min-w-[280px]" value={task.title} onChange={(e) => editTitleTask(e.target.value)} type="text" />
               <Select
                 value={task.categoryId}
                 options={listOptionsCategory}
@@ -70,14 +86,14 @@ function ItemTask(props: IPropsItemTask) {
             </>
           )}
         </div>
-        {activeEditingTask ? (
+        {editingCurrentTask ? (
           <></>
         ) : (
           <span className="bg-red text-white text-xs py-0.5 px-2 rounded-sm ml-2">{identifyCategory(task.categoryId)}</span>
         )}
       </div>
       <div className="flex items-center gap-3">
-        {activeEditingTask ? (
+        {editingCurrentTask ? (
           <button onClick={cancelEditTask} className="text-red-700 hover:opacity-70">
             <CancelIcon size={14} />
           </button>

@@ -16,7 +16,7 @@ function PanelTasks() {
           <InputSearch value={searchTask} onChange={setSearchTask} />
         </div>
         <div className="pl-1 pb-3 pr-4 h-full overflow-y-scroll">
-            <ListTasks />
+          <ListTasks />
         </div>
       </div>
     </div>

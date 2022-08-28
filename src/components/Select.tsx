@@ -1,4 +1,4 @@
-import {useState} from 'React';
+import {useState, useEffect} from 'React';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
 interface SelectOptions {
@@ -33,8 +33,15 @@ function Select(props: ISelect) {
   }
 
   return (
-    <div className="relative">
-      <div className="py-0.5 px-2 pl-2.5 min-w-[160px] h-fit flex justify-between items-center rounded-sm text-red border border-red cursor-pointer" onClick={handleVisibleList}>
+    <div className="relative z-[999]">
+      <div
+        className="
+          py-0.5 px-2 pl-2.5 min-w-[160px] h-fit
+          flex justify-between items-center
+          rounded-sm text-red border border-red cursor-pointer
+        "
+        onClick={handleVisibleList}
+      >
         <span className="text-xs">{identifyOption(value) || placeholder}</span>
         <ChevronDownIcon size={12} />
       </div>
